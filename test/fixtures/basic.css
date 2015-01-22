@@ -1,0 +1,13 @@
+@simple-mixin-define foo {
+  background: pink;
+}
+
+.bar {
+  @simple-mixin-include foo;
+  color: red;
+}
+
+.baz {
+  color: red;
+  @simple-mixin-include foo;
+}

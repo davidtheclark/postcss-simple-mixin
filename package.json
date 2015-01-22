@@ -1,0 +1,17 @@
+{
+  "name": "postcss-simple-mixin",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test"
+  },
+  "author": "David Clark",
+  "license": "MIT",
+  "dependencies": {
+    "postcss": "^4.0.1"
+  },
+  "devDependencies": {
+    "tape": "3.4.0"
+  }
+}
