@@ -32,7 +32,7 @@ function compareFixtures(t, name) {
 
 test('basically works', function(t) {
   compareFixtures(t, 'basic');
-  compareFixtures(t, 'readmeexample');
+  compareFixtures(t, 'readme-example');
   t.end();
 });
 

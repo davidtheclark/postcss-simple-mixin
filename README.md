@@ -4,7 +4,7 @@ A [PostCSS](https://github.com/postcss/postcss) plugin to enable *simple* mixins
 
 With these mixins at your disposal, you can **clone declarations from an abstract definition into any rule set that follows**.
 
-> **WARNING: DO NOT USE YET UNLESS YOU ARE CONTRIBUTING TO DEVELOPMENT. API WILL PROBABLY CHANGE. IT'S AT AN EXPERIMENTAL PHASE**
+> **WARNING: DO NOT USE YET UNLESS YOU ARE CONTRIBUTING TO DEVELOPMENT. API WILL PROBABLY CHANGE. IT'S AT AN EXPERIMENTAL PHASE.**
 
 ## Example Input-Output
 
@@ -55,14 +55,16 @@ Use the at-rule `@simple-mixin-define` to define your mixin. For example:
 }
 ```
 
-Some guidelines to obey (violations should throw errors):
+`@simple-mixin-define` statements will be removed entirely from the generated CSS.
+
+Some defining guidelines to obey (violations should throw errors):
 - Definitions must occur at the root level.
-- Definitions can only contain declarations (and comments): no `Rule` nodes.
+- Definitions should only contain declarations (and comments): no `Rule` nodes.
 - Comments are ok in definitions but are not copied: only declarations are copied.
 
 ### Include a Mixin
 
-Use the at-rule `@simple-mixin-include` to include you mixin with in a rule set. For example:
+Use the at-rule `@simple-mixin-include` to include your mixin in a rule set. For example:
 
 ```css
 .bar {
@@ -71,13 +73,13 @@ Use the at-rule `@simple-mixin-include` to include you mixin with in a rule set.
 }
 ```
 
-Some guidelines to obey (violations should throw errors):
+Some including guidelines to obey (violations should throw errors):
 - Includes must *not* occur at the root level. They must occur inside a rule set.
 - Mixins must be defined *before* they are included.
 
 ### Plug it in to PostCSS
 
-Plug it in just like any other PostCSS plugin. There are no frills and no options, so integration should be straightforward. For example:
+Plug it in just like any other PostCSS plugin. There are no frills and no options, so integration should be straightforward. For example (as a node script):
 
 ```js
 var fs = require('fs');
@@ -87,14 +89,14 @@ var simpleMixin = require('postcss-simple-mixin');
 var inputCss = fs.readFileSync('input.css', 'utf8');
 
 var outputCss = postcss()
-  .use(simpleMixin())
+  .use(simpleMixin)
   .process(inputCss)
   .css;
 
 console.log(outputCss);
 ```
 
-Or take advantage of [any of the myriad other ways to consume PostCSS](https://github.com/postcss/postcss#usage).
+Or take advantage of [any of the myriad other ways to consume PostCSS](https://github.com/postcss/postcss#usage), and follow the plugin instructions they provide.
 
 ## Disclaimer
 
