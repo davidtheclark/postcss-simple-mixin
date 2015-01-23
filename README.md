@@ -7,7 +7,7 @@ With these mixins at your disposal, you can **clone declarations from an abstrac
 ## Example Input-Output
 
 Input:
-```scss
+```css
 @simple-mixin-define pinkify {
   background: pink;
 }
@@ -46,7 +46,7 @@ body {
 
 Use the at-rule `@simple-mixin-define` to define your mixin. For example:
 
-```scss
+```css
 @simple-mixin-define foo {
   background: black;
   color: white;
@@ -62,7 +62,7 @@ Some guidelines to obey (violations should throw errors):
 
 Use the at-rule `@simple-mixin-include` to include you mixin with in a rule set. For example:
 
-```scss
+```css
 .bar {
   @simple-mixin-include foo;
   font-size: 40em;
