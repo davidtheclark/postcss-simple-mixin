@@ -54,11 +54,11 @@ Use the at-rule `@simple-mixin-define` to define your mixin. For example:
 ```
 
 Some guidelines to obey (violations should throw errors):
-- Definitions must be at the root level.
+- Definitions must occur at the root level.
 - Definitions can only contain declarations (and comments): no `Rule` nodes.
 - Comments are ok in definitions but are not copied: only declarations are copied.
 
-### Use a Mixin
+### Include a Mixin
 
 Use the at-rule `@simple-mixin-include` to include you mixin with in a rule set. For example:
 
@@ -70,12 +70,12 @@ Use the at-rule `@simple-mixin-include` to include you mixin with in a rule set.
 ```
 
 Some guidelines to obey (violations should throw errors):
-- Includes must *not* be at the root level.
+- Includes must *not* occur at the root level. They must occur inside a rule set.
 - Mixins must be defined *before* they are included.
 
 ### Plug it in to PostCSS
 
-Just like any other PostCSS. There are no frills and no options, so it should be straightforward. For example:
+Plug it in just like any other PostCSS plugin. There are no frills and no options, so integration should be straightforward. For example:
 
 ```js
 var fs = require('fs');
