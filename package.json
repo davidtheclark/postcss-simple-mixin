@@ -1,17 +1,29 @@
 {
   "name": "postcss-simple-mixin",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "tape test"
-  },
   "author": "David Clark",
   "license": "MIT",
+  "version": "0.0.1",
+  "description": "Simple mixins for PostCSS",
+  "keywords": [
+    "PostCSS",
+    "mixin",
+    "css",
+    "stylesheet",
+    "style",
+    "clone",
+    "extend"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js test/index.js",
+    "test": "npm run lint && tape test"
+  },
   "dependencies": {
-    "postcss": "^4.0.1"
+    "postcss-message-helpers": "^1.1.1"
   },
   "devDependencies": {
-    "tape": "3.4.0"
+    "eslint": "^0.12.0",
+    "postcss": "^4.0.0",
+    "tape": "^3.4.0"
   }
 }

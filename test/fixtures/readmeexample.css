@@ -1,0 +1,15 @@
+@simple-mixin-define pinkify {
+  background: pink;
+}
+
+body {
+  @simple-mixin-include pinkify;
+}
+
+.outer-thing {
+  background: orange;
+}
+
+.inner-thing {
+  @simple-mixin-include pinkify;
+}

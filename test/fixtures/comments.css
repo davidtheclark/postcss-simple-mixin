@@ -1,0 +1,9 @@
+@simple-mixin-define foo {
+  /* the best background is a pink background */
+  background: pink;
+  /* wazoo */
+}
+
+.bar {
+  @simple-mixin-include foo;
+}

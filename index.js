@@ -1,3 +1,7 @@
+'use strict';
+
+var messageHelpers = require('postcss-message-helpers');
+
 function simpleMixin(css) {
   var DEFINING_AT_RULE = 'simple-mixin-define';
   var INCLUDING_AT_RULE = 'simple-mixin-include';
@@ -5,31 +9,62 @@ function simpleMixin(css) {
 
   css.eachAtRule(function(atRule) {
     if (atRule.name === DEFINING_AT_RULE) {
+      checkDefinitionLocation(atRule);
       processDefinition(atRule);
+    } else if (atRule.name === INCLUDING_AT_RULE) {
+      checkIncludeLocation(atRule);
+      processInclusion(atRule, atRule.parent);
     }
   });
 
-  css.eachRule(function(rule) {
-    rule.eachAtRule(function(atRule) {
-      if (atRule.name === INCLUDING_AT_RULE) {
-        processInclusion(atRule, rule);
-      }
-    });
-  });
-
   function processDefinition(atRule) {
+    checkDefinitionNodes(atRule);
     availableMixins[atRule.params] = atRule;
     atRule.removeSelf();
   }
 
-  function processInclusion(atRule, rule) {
+  function processInclusion(atRule, parentNode) {
     var targetMixin = atRule.params;
     if (availableMixins[targetMixin]) {
       availableMixins[targetMixin].eachDecl(function(decl) {
-        rule.insertBefore(atRule, decl);
+        parentNode.insertBefore(atRule, decl);
       });
       atRule.removeSelf();
+    } else {
+      throw new Error(messageHelpers.message(
+        'Attempted to @' + INCLUDING_AT_RULE + ' `' + targetMixin + '`, ' +
+        'which is not (yet) defined',
+        atRule.source
+      ));
     }
+  }
+
+  function checkDefinitionLocation(atRule) {
+    if (atRule.parent.type !== 'root') {
+      throw new Error(messageHelpers.message(
+        '@' + DEFINING_AT_RULE + ' must be at the root level',
+        atRule.source
+      ));
+    }
+  }
+
+  function checkIncludeLocation(atRule) {
+    if (atRule.parent.type === 'root') {
+      throw new Error(messageHelpers.message(
+        '@' + INCLUDING_AT_RULE + ' cannot be at the root level',
+        atRule.source
+      ));
+    }
+  }
+
+  function checkDefinitionNodes(atRule) {
+    atRule.nodes.forEach(function(node) {
+      if (node.type === 'rule' || node.type === 'atRule') {
+        throw new Error(messageHelpers.message(
+          '@' + DEFINING_AT_RULE + ' cannot contain rules'
+        ));
+      }
+    });
   }
 
   return css;
