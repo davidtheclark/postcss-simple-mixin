@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/davidtheclark/postcss-simple-mixin.svg?branch=master)](https://travis-ci.org/davidtheclark/postcss-simple-mixin)
+
 # postcss-simple-mixin
 
 A [PostCSS](https://github.com/postcss/postcss) plugin to enable *simple* mixins in CSS.
