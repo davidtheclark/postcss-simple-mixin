@@ -13,7 +13,7 @@ function simpleMixin(css) {
       processDefinition(atRule);
     } else if (atRule.name === INCLUDING_AT_RULE) {
       checkIncludeLocation(atRule);
-      processInclusion(atRule, atRule.parent);
+      processInclusion(atRule);
     }
   });
 
@@ -23,11 +23,11 @@ function simpleMixin(css) {
     atRule.removeSelf();
   }
 
-  function processInclusion(atRule, parentNode) {
+  function processInclusion(atRule) {
     var targetMixin = atRule.params;
     if (availableMixins[targetMixin]) {
       availableMixins[targetMixin].eachDecl(function(decl) {
-        parentNode.insertBefore(atRule, decl);
+        atRule.parent.insertBefore(atRule, decl);
       });
       atRule.removeSelf();
     } else {
