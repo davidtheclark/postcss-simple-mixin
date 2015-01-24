@@ -1,10 +1,14 @@
 # postcss-simple-mixin
 
-A [PostCSS](https://github.com/postcss/postcss) plugin to enable *simple* mixins in CSS (no arguments, no nesting).
+A [PostCSS](https://github.com/postcss/postcss) plugin to enable *simple* mixins in CSS.
+
+(simple = no arguments, no nesting, no monkey business)
 
 With these mixins at your disposal, you can **clone declarations from an abstract definition into any rule set that follows**.
 
 *This plugin is compatible with PostCSS v4+.*
+
+> **A Note on mixins & extends**: Mixins copy declarations from an abstract definition into a concrete rule set. Extends clone a concrete rule set's selector(s) and add them an extendable rule set that you have defined. *This* plugin enables simple mixins. If you would like to use extends, as well --- or instead --- have a look at [`postcss-simple-extend`](https://github.com/davidtheclark/postcss-simple-extend).
 
 ## Example Input-Output
 
@@ -58,8 +62,8 @@ Use the at-rule `@simple-mixin-define` to define your mixin. For example:
 `@simple-mixin-define` statements will be removed entirely from the generated CSS.
 
 Some defining guidelines to obey (violations should throw errors):
-- Definitions must occur at the root level.
-- Definitions should only contain declarations (and comments): no `Rule` nodes.
+- Definitions must occur at the root level (i.e. not inside statements, such as rule sets or `@media` statements).
+- Definitions should only contain declarations (and comments): no statements.
 - Comments are ok in definitions but are not copied: only declarations are copied.
 
 ### Include a Mixin

@@ -1,7 +1,5 @@
 'use strict';
 
-var messageHelpers = require('postcss-message-helpers');
-
 function simpleMixin(css) {
   var DEFINING_AT_RULE = 'simple-mixin-define';
   var INCLUDING_AT_RULE = 'simple-mixin-include';
@@ -24,45 +22,46 @@ function simpleMixin(css) {
   }
 
   function processInclusion(atRule) {
-    var targetMixin = atRule.params;
-    if (availableMixins[targetMixin]) {
-      availableMixins[targetMixin].eachDecl(function(decl) {
-        atRule.parent.insertBefore(atRule, decl);
-      });
-      atRule.removeSelf();
-    } else {
-      throw new Error(messageHelpers.message(
-        'Attempted to @' + INCLUDING_AT_RULE + ' `' + targetMixin + '`, ' +
-        'which is not (yet) defined',
-        atRule.source
-      ));
+    var targetMixin = getMixin(atRule.params, atRule);
+    targetMixin.eachDecl(function(decl) {
+      atRule.parent.insertBefore(atRule, decl.clone());
+    });
+    atRule.removeSelf();
+  }
+
+  function getMixin(mixinIdent, node) {
+    var targetMixin = availableMixins[mixinIdent];
+    if (!targetMixin) {
+      throw node.error(
+        'Attempted to @' + INCLUDING_AT_RULE + ' `' + mixinIdent + '`, ' +
+        'which is not (yet) defined'
+      );
     }
+    return targetMixin;
   }
 
   function checkDefinitionLocation(atRule) {
     if (atRule.parent.type !== 'root') {
-      throw new Error(messageHelpers.message(
-        '@' + DEFINING_AT_RULE + ' must be at the root level',
-        atRule.source
-      ));
+      throw atRule.error(
+        '@' + DEFINING_AT_RULE + ' must occur at the root level'
+      );
     }
   }
 
   function checkIncludeLocation(atRule) {
     if (atRule.parent.type === 'root') {
-      throw new Error(messageHelpers.message(
-        '@' + INCLUDING_AT_RULE + ' cannot be at the root level',
-        atRule.source
-      ));
+      throw atRule.error(
+        '@' + INCLUDING_AT_RULE + ' cannot occur at the root level'
+      );
     }
   }
 
   function checkDefinitionNodes(atRule) {
     atRule.nodes.forEach(function(node) {
-      if (node.type === 'rule' || node.type === 'atRule') {
-        throw new Error(messageHelpers.message(
-          '@' + DEFINING_AT_RULE + ' cannot contain rules'
-        ));
+      if (node.type === 'rule' || node.type === 'atrule') {
+        throw atRule.error(
+          '@' + DEFINING_AT_RULE + ' cannot contain statements'
+        );
       }
     });
   }

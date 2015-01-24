@@ -1,0 +1,10 @@
+@simple-mixin-define foo {
+  background: pink;
+}
+
+@media (max-width: 10px) {
+  .bar {
+    @simple-mixin-include foo;
+    color: red;
+  }
+}

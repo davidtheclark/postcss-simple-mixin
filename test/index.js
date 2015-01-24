@@ -51,6 +51,11 @@ test('works on myriad selector varieties', function(t) {
   t.end();
 });
 
+test('works when include is in media block', function(t) {
+  compareFixtures(t, 'media-block');
+  t.end();
+});
+
 function processCss(css) {
   return function() {
     return postcss(simpleMixin).process(css).css;
@@ -62,14 +67,23 @@ test('throws location error', function(t) {
   var nonrootDefine = '.foo { @simple-mixin-define bar { background: pink; } }';
   t.throws(
     processCss(nonrootDefine),
-    /must be at the root level/,
+    /must occur at the root level/,
+    'throws an error if definition is in non-root node'
+  );
+
+  var mediaDefine = (
+    '@media (max-width: 10px) { @simple-mixin-define foo { background: pink; } }'
+  );
+  t.throws(
+    processCss(mediaDefine),
+    /must occur at the root level/,
     'throws an error if definition is in non-root node'
   );
 
   var rootInclude = '@simple-mixin-include bar;';
   t.throws(
     processCss(rootInclude),
-    /cannot be at the root level/,
+    /cannot occur at the root level/,
     'throws an error if include is in the root node'
   );
 
@@ -77,12 +91,24 @@ test('throws location error', function(t) {
 });
 
 test('throws illegal nesting error', function(t) {
+
   var defineWithRule = '@simple-mixin-define foo { .bar { background: pink; } }';
   t.throws(
     processCss(defineWithRule),
-    /cannot contain rules/,
+    /cannot contain statements/,
     'throws an error if definition contains a rule'
   );
+
+  var defineWithMedia = (
+    '@simple-mixin-define foo { @media (max-width: 400px) {' +
+    '.bar { background: pink; } } }'
+  );
+  t.throws(
+    processCss(defineWithMedia),
+    /cannot contain statements/,
+    'throws an error if definition contains a rule'
+  );
+
   t.end();
 });
 
