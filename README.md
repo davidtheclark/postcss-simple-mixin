@@ -4,7 +4,7 @@ A [PostCSS](https://github.com/postcss/postcss) plugin to enable *simple* mixins
 
 With these mixins at your disposal, you can **clone declarations from an abstract definition into any rule set that follows**.
 
-> **WARNING: DO NOT USE YET UNLESS YOU ARE CONTRIBUTING TO DEVELOPMENT. API WILL PROBABLY CHANGE. IT'S AT AN EXPERIMENTAL PHASE.**
+*This plugin is compatible with PostCSS v4+.*
 
 ## Example Input-Output
 

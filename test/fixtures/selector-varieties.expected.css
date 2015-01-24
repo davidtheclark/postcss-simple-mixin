@@ -1,0 +1,27 @@
+/* scattershot selector variety */
+
+#bar {
+  background: pink;
+}
+
+#bar::before {
+  background: pink;
+}
+
+#bar:hover {
+  background: pink;
+}
+
+div[attr="bar"] {
+  background: pink;
+}
+
+ul,
+li,
+a {
+  background: pink;
+}
+
+div ul > li + span ~ span {
+  background: pink;
+}

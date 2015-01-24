@@ -46,6 +46,11 @@ test('accepts but does not copy comments', function(t) {
   t.end();
 });
 
+test('works on myriad selector varieties', function(t) {
+  compareFixtures(t, 'selector-varieties');
+  t.end();
+});
+
 function processCss(css) {
   return function() {
     return postcss(simpleMixin).process(css).css;

@@ -1,17 +1,30 @@
 {
   "name": "postcss-simple-mixin",
-  "author": "David Clark",
+  "author": {
+    "name": "David Clark",
+    "email": "david.dave.clark@gmail.com",
+    "url": "http://davidtheclark.com"
+  },
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Simple mixins for PostCSS",
+  "homepage": "https://github.com/davidtheclark/postcss-simple-mixin",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/davidtheclark/postcss-simple-mixin.git"
+  },
   "keywords": [
-    "PostCSS",
-    "mixin",
     "css",
-    "stylesheet",
-    "style",
+    "postcss",
+    "postcss-plugin",
+    "mixin",
     "clone",
     "extend"
+  ],
+  "files": [
+    "index.js",
+    "LICENSE",
+    "README.md"
   ],
   "main": "index.js",
   "scripts": {

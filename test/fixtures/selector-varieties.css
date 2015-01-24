@@ -1,0 +1,31 @@
+/* scattershot selector variety */
+
+@simple-mixin-define foo {
+  background: pink;
+}
+
+#bar {
+  @simple-mixin-include foo;
+}
+
+#bar::before {
+  @simple-mixin-include foo;
+}
+
+#bar:hover {
+  @simple-mixin-include foo;
+}
+
+div[attr="bar"] {
+  @simple-mixin-include foo;
+}
+
+ul,
+li,
+a {
+  @simple-mixin-include foo;
+}
+
+div ul > li + span ~ span {
+  @simple-mixin-include foo;
+}
