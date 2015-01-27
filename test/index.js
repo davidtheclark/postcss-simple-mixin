@@ -56,9 +56,23 @@ test('works when include is in media block', function(t) {
   t.end();
 });
 
+test('works both with and without () calling', function(t) {
+  var someCss = '.foo { background: pink; }';
+
+  t.doesNotThrow(function() {
+    return postcss(simpleMixin()).process(someCss).css;
+  });
+
+  t.doesNotThrow(function() {
+    return postcss(simpleMixin).process(someCss).css;
+  });
+
+  t.end();
+});
+
 function processCss(css) {
   return function() {
-    return postcss(simpleMixin).process(css).css;
+    return postcss(simpleMixin()).process(css).css;
   };
 }
 
