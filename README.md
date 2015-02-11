@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/davidtheclark/postcss-simple-mixin.svg?branch=master)](https://travis-ci.org/davidtheclark/postcss-simple-mixin)
+**DEPRECATED**: Shifting efforts to [`postcss-mixins`](https://github.com/postcss/postcss-mixins) instead --- which includes the functionality described below along with other more powerful (less simple) features.
 
-# postcss-simple-mixin
+# postcss-simple-mixin [![Build Status](https://travis-ci.org/davidtheclark/postcss-simple-mixin.svg?branch=master)](https://travis-ci.org/davidtheclark/postcss-simple-mixin)
 
 A [PostCSS](https://github.com/postcss/postcss) plugin to enable *simple* mixins in CSS.
 
